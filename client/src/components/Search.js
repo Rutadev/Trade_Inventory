@@ -4,6 +4,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {Form, FormGroup, Input, Button} from 'reactstrap'
 import { connect } from 'react-redux'
 import {Container, Row} from 'reactstrap'
+import StockModal from './StockModal'
 
 
 class Search extends Component {
@@ -14,6 +15,9 @@ class Search extends Component {
     this.onChange = this.onChange.bind(this)
     this.onClear = this.onClear.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+
+    // Open modal
+    this.state = { isOpen: false };
 
   }
   onChange(e)
@@ -39,6 +43,12 @@ class Search extends Component {
     //prevents full page reload
     e.preventDefault();
   }
+
+    showModal = () => {
+        this.setState((state) => ({isOpen: !state.isOpen}));
+            this.setState({ isOpen: false })
+    };
+
 
   renderTitleAndForm(){
     let titleAndForm = (
@@ -78,6 +88,10 @@ class Search extends Component {
           <Button className ="btn-ll5" onClick={ this.onClear }>
                  Clear
           </Button>
+          <Button className ="btn-ll5" onClick={() => this.setState({ isOpen: true })}>
+                Add
+          </Button>
+           <StockModal isOpen={this.state.isOpen} handleClose={this.handleClose}/>
           </Form>
       </Row>
       <Row className="show-grid top10">
